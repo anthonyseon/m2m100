@@ -1,6 +1,7 @@
 # M2M100 Translation using Vessl
 
 This project demonstrates how to use Meta's M2M100 model for translation, implemented with Streamlit and deployed using Vessl's run service.
+https://huggingface.co/facebook/m2m100_418M
 
 ## Description
 
