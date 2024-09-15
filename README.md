@@ -1,27 +1,17 @@
-# SSD-1B
+# M2M100 Translation using Vessl
 
-SSD-1B: Faster, smaller SDXL variant excelling in high-quality text-to-image generation with diverse dataset training, incorporating Grit and Midjourney data.
+This project demonstrates how to use Meta's M2M100 model for translation, implemented with Streamlit and deployed using Vessl's run service.
 
 ## Description
 
-The Segmind Stable Diffusion Model (`SSD-1B`) is a distilled **50% smaller version** of the Stable Diffusion XL (SDXL), offering a **60% speedup** while maintaining high-quality text-to-image generation capabilities. It has been trained on diverse datasets, including Grit and Midjourney scrape data, to enhance its ability to create a wide range of visual content based on textual prompts.
+This project allows users to input text and translate it into different languages using the M2M100 model. The interface is built using Streamlit, and the project is deployed on Vessl.
 
 ## Quickstart
 
-Recreate the model's outcome using a concise code snippet (specifics of the YAML code can be found below).
+To run the project:
+
+1. Clone the repository and move to the project directory:
 
 ```sh
-# clone repository and move to directory
-git clone https://anthonyseon@bitbucket.org/tecacedev/vessl_test.git
-cd SSD-1B
-
-# run by cli
-python ssd_1b_inference.py
-
-# run streamlit on local
-streamlit run ssd_1b_streamlit.py --server.port=80
-```
-
-## Reference
-
-- Blog: <https://blog.segmind.com/introducing-segmind-ssd-1b/>
+git clone https://your-repo-url
+cd m2m100_project
