@@ -1,0 +1,10 @@
+Flask==2.1.1
+Werkzeug==2.2.3
+requests
+
+transformers==4.40.0
+sentencepiece==0.2.0
+accelerate==0.29.3
+datasets==2.19.0
+ipywidgets
+nltk
