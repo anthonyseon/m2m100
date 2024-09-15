@@ -13,5 +13,5 @@ To run the project:
 1. Clone the repository and move to the project directory:
 
 ```sh
-git clone https://your-repo-url
+git clone github.com/anthonyseon/m2m100.git
 cd m2m100_project
