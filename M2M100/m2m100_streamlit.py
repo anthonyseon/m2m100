@@ -3,18 +3,15 @@ from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 import torch
 
 # Streamlit 페이지 설정
-st.set_page_config(layout="centered", page_title="M2M100 Translator")
+st.set_page_config(layout="wide", page_title="M2M100 Translator")
 
 # 타이틀
 st.title("M2M100 Translation using Streamlit")
 
 # 설명
-st.write("""
-Translate text using Meta's M2M100 model. 
-Choose the source language and target language, input your text, and get the translation.
-""")
+st.write("Enter a sentence to translate between different languages using Meta's M2M100 model.")
 
-# 모델과 토크나이저 로드
+# 모델 로드 함수
 @st.cache_resource
 def load_model():
     model_name = "facebook/m2m100_418M"
@@ -24,9 +21,9 @@ def load_model():
 
 model, tokenizer = load_model()
 
-# 입력을 위한 Streamlit 위젯
-source_lang = st.selectbox("Select source language", ["ko", "en", "fr", "de", "ja", "zh"])
-target_lang = st.selectbox("Select target language", ["ko", "en", "fr", "de", "ja", "zh"])
+# 입력 필드와 선택 상자
+source_lang = st.selectbox("Select source language", ["en", "ko", "fr", "de", "ja", "zh"])
+target_lang = st.selectbox("Select target language", ["en", "ko", "fr", "de", "ja", "zh"])
 text_input = st.text_area("Input text to translate", height=150)
 
 # 번역 버튼
@@ -34,15 +31,14 @@ if st.button("Translate"):
     if not text_input:
         st.warning("Please enter text for translation!")
     else:
-        # 입력 텍스트 토크나이징 및 번역
         tokenizer.src_lang = source_lang
         inputs = tokenizer(text_input, return_tensors="pt")
+
         with torch.no_grad():
             generated_tokens = model.generate(**inputs, forced_bos_token_id=tokenizer.get_lang_id(target_lang))
-        
-        # 번역된 텍스트 디코딩
+
         translation = tokenizer.batch_decode(generated_tokens, skip_special_tokens=True)[0]
-        
-        # 결과 출력
+
+        # 번역된 텍스트 출력
         st.subheader("Translated Text")
         st.write(translation)
