@@ -1,4 +1,4 @@
-name: M2M100-streamlit-Finetune
+name: M2M100-streamlit-Multi-Model
 description: A template Run for inference of M2M100 with streamlit app
 service_account_name: ""
 termination_protection: false
