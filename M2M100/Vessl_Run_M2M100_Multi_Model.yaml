@@ -8,6 +8,7 @@ import:
       url: github.com/anthonyseon/m2m100.git
       ref: main
   /model/: hf://huggingface.co/JamesKim/m2m100-ft3
+  /finetunemodel/: hf://huggingface.co/JamesKim/m2m100-ft3
 resources:
   cluster: vessl-gcp-oregon
   preset: gpu-l4-small
@@ -16,7 +17,7 @@ run:
   - command: |-
       pip install --upgrade pip
       pip install -r requirements.txt
-      streamlit run m2m100_finetune.py --server.port=80
+      streamlit run m2m100_finetune_Multi_Model_streamlit.py --server.port=80
     workdir: /code/M2M100
 interactive:
   max_runtime: 24h
