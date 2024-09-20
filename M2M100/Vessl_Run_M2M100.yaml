@@ -1,0 +1,26 @@
+name: M2M100-streamlit
+description: A template Run for inference of M2M100 with streamlit app
+import:
+  /code/:
+    git:
+      url: github.com/anthonyseon/m2m100.git
+      ref: main
+  /model/: hf://huggingface.co/facebook/m2m100_418M
+resources:
+  cluster: vessl-gcp-oregon
+  preset: gpu-l4-small
+image: quay.io/vessl-ai/hub:torch2.1.0-cuda12.2-202312070053
+run:
+  - command: |-
+      pip install --upgrade pip
+      pip install -r requirements.txt
+      streamlit run m2m100_finetune_streamlit.py --server.port=80
+    workdir: /code/M2M100
+interactive:
+  max_runtime: 24h
+  jupyter:
+    idle_timeout: 120m
+ports:
+  - name: streamlit
+    type: http
+    port: 80
