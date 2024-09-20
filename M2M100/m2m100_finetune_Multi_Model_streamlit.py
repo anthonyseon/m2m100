@@ -33,7 +33,7 @@ with tab1:
     model_general, tokenizer_general = load_model()
 
     # Input fields
-    source_lang_general = st.selectbox("Select source language", ["en", "ko", "fr", "de", "ja", "zh"], key="general_source")
+    source_lang_general = st.selectbox("Select source language", ["ko", "en", "fr", "de", "ja", "zh"], key="general_source")
     target_lang_general = st.selectbox("Select target language", ["en", "ko", "fr", "de", "ja", "zh"], key="general_target")
     text_input_general = st.text_area("Input text to translate", height=150, key="general_input")
 
@@ -69,7 +69,7 @@ with tab2:
     model_finetune, tokenizer_finetune = finetune_load_model()
 
     # Input fields
-    source_lang_finetune = st.selectbox("Select source language", ["en", "ko", "fr", "de", "ja", "zh"], key="finetune_source")
+    source_lang_finetune = st.selectbox("Select source language", ["ko", "en", "fr", "de", "ja", "zh"], key="finetune_source")
     target_lang_finetune = st.selectbox("Select target language", ["en", "ko", "fr", "de", "ja", "zh"], key="finetune_target")
     text_input_finetune = st.text_area("Input text to translate", height=150, key="finetune_input")
 
