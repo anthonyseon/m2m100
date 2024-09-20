@@ -2,10 +2,10 @@ import streamlit as st
 from transformers import M2M100ForConditionalGeneration, M2M100Tokenizer
 import torch
 
-# Streamlit page configuration
+# Streamlit 페이지 설정
 st.set_page_config(layout="wide", page_title="M2M100 Translator")
 
-# Function to load a model
+# 모델 로드 함수
 @st.cache_resource
 def load_model():
     model_name = "facebook/m2m100_418M"
@@ -19,28 +19,28 @@ def finetune_load_model():
     tokenizer = M2M100Tokenizer.from_pretrained(model_name)
     return model, tokenizer
 
-# Tab structure
+# 탭 구조
 tab1, tab2 = st.tabs(["General (facebook/m2m100_418M)", "Finetune (JamesKim/m2m100-ft3_073)"])
 
-# --- General tab ---
+# --- 일반 탭 ---
 with tab1:
-    st.title("M2M100 General Translation")
+    st.title("M2M100 일반 번역")
 
-    # Description
-    st.write("Use Meta's M2M100 model to translate between different languages.")
+    # 설명
+    st.write("Meta의 M2M100 모델을 사용하여 다양한 언어 간 번역을 수행하세요.")
 
-    # Load the general model
+    # 일반 모델 로드
     model_general, tokenizer_general = load_model()
 
-    # Input fields
-    source_lang_general = st.selectbox("Select source language", ["ko", "en", "fr", "de", "ja", "zh"], key="general_source")
-    target_lang_general = st.selectbox("Select target language", ["en", "ko", "fr", "de", "ja", "zh"], key="general_target")
-    text_input_general = st.text_area("Input text to translate", height=150, key="general_input")
+    # 입력 필드
+    source_lang_general = st.selectbox("소스 언어 선택", ["ko", "en", "fr", "de", "ja", "zh"], key="general_source")
+    target_lang_general = st.selectbox("대상 언어 선택", ["en", "ko", "fr", "de", "ja", "zh"], key="general_target")
+    text_input_general = st.text_area("번역할 텍스트 입력", height=150, key="general_input")
 
-    # Translation button
-    if st.button("Translate", key="general_translate"):
+    # 번역 버튼
+    if st.button("번역", key="general_translate"):
         if not text_input_general:
-            st.warning("Please enter text for translation!")
+            st.warning("번역할 텍스트를 입력하세요!")
         else:
             tokenizer_general.src_lang = source_lang_general
             inputs_general = tokenizer_general(text_input_general, return_tensors="pt")
@@ -50,33 +50,33 @@ with tab1:
 
             translation_general = tokenizer_general.batch_decode(generated_tokens_general, skip_special_tokens=True)[0]
 
-            # Save the translation result
+            # 번역 결과 저장
             st.session_state.general_translation = translation_general
 
-    # Display the translation result
+    # 번역 결과 표시
     if "general_translation" in st.session_state:
-        st.subheader("Translated Text (General)")
+        st.subheader("번역된 텍스트 (일반)")
         st.write(st.session_state.general_translation)
 
-# --- Finetune tab ---
+# --- 파인튜닝 탭 ---
 with tab2:
-    st.title("M2M100 Finetuned Translation")
+    st.title("M2M100 파인튜닝 번역")
 
-    # Description
-    st.write("Use the fine-tuned M2M100 model from Hugging Face to translate.")
+    # 설명
+    st.write("Hugging Face의 파인튜닝된 M2M100 모델을 사용하여 번역하세요.")
 
-    # Load the fine-tuned model
+    # 파인튜닝된 모델 로드
     model_finetune, tokenizer_finetune = finetune_load_model()
 
-    # Input fields
-    source_lang_finetune = st.selectbox("Select source language", ["ko", "en", "fr", "de", "ja", "zh"], key="finetune_source")
-    target_lang_finetune = st.selectbox("Select target language", ["en", "ko", "fr", "de", "ja", "zh"], key="finetune_target")
-    text_input_finetune = st.text_area("Input text to translate", height=150, key="finetune_input")
+    # 입력 필드
+    source_lang_finetune = st.selectbox("소스 언어 선택", ["ko", "en", "fr", "de", "ja", "zh"], key="finetune_source")
+    target_lang_finetune = st.selectbox("대상 언어 선택", ["en", "ko", "fr", "de", "ja", "zh"], key="finetune_target")
+    text_input_finetune = st.text_area("번역할 텍스트 입력", height=150, key="finetune_input")
 
-    # Translation button
-    if st.button("Translate", key="finetune_translate"):
+    # 번역 버튼
+    if st.button("번역", key="finetune_translate"):
         if not text_input_finetune:
-            st.warning("Please enter text for translation!")
+            st.warning("번역할 텍스트를 입력하세요!")
         else:
             tokenizer_finetune.src_lang = source_lang_finetune
             inputs_finetune = tokenizer_finetune(text_input_finetune, return_tensors="pt")
@@ -86,10 +86,10 @@ with tab2:
 
             translation_finetune = tokenizer_finetune.batch_decode(generated_tokens_finetune, skip_special_tokens=True)[0]
 
-            # Save the translation result
+            # 번역 결과 저장
             st.session_state.finetune_translation = translation_finetune
 
-    # Display the translation result
+    # 번역 결과 표시
     if "finetune_translation" in st.session_state:
-        st.subheader("Translated Text (Finetune)")
+        st.subheader("번역된 텍스트 (파인튜닝)")
         st.write(st.session_state.finetune_translation)
