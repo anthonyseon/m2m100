@@ -13,7 +13,7 @@ def load_model():
     tokenizer = M2M100Tokenizer.from_pretrained(model_name)
     return model, tokenizer
 
-def finetune_load_model(model_name):
+def finetune_load_model():
     model_name = "JamesKim/m2m100-ft3"
     model = M2M100ForConditionalGeneration.from_pretrained(model_name)
     tokenizer = M2M100Tokenizer.from_pretrained(model_name)
@@ -27,7 +27,7 @@ with tab1:
     st.title("M2M100 General Translation")
 
     # Description
-    st.write("Enter a sentence to translate between different languages using Meta's M2M100 model.")
+    st.write("Use Meta's M2M100 model to translate between different languages.")
 
     # Load the general model
     model_general, tokenizer_general = load_model()
@@ -50,16 +50,20 @@ with tab1:
 
             translation_general = tokenizer_general.batch_decode(generated_tokens_general, skip_special_tokens=True)[0]
 
-            # Display the translation
-            st.subheader("Translated Text (General)")
-            st.write(translation_general)
+            # Save the translation result
+            st.session_state.general_translation = translation_general
+
+    # Display the translation result
+    if "general_translation" in st.session_state:
+        st.subheader("Translated Text (General)")
+        st.write(st.session_state.general_translation)
 
 # --- Finetune tab ---
 with tab2:
     st.title("M2M100 Finetuned Translation")
 
     # Description
-    st.write("Enter a sentence to translate using the fine-tuned M2M100 model from Hugging Face.")
+    st.write("Use the fine-tuned M2M100 model from Hugging Face to translate.")
 
     # Load the fine-tuned model
     model_finetune, tokenizer_finetune = finetune_load_model()
@@ -82,6 +86,10 @@ with tab2:
 
             translation_finetune = tokenizer_finetune.batch_decode(generated_tokens_finetune, skip_special_tokens=True)[0]
 
-            # Display the translation
-            st.subheader("Translated Text (Finetune)")
-            st.write(translation_finetune)
+            # Save the translation result
+            st.session_state.finetune_translation = translation_finetune
+
+    # Display the translation result
+    if "finetune_translation" in st.session_state:
+        st.subheader("Translated Text (Finetune)")
+        st.write(st.session_state.finetune_translation)
