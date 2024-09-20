@@ -73,7 +73,7 @@ with tab1:
     st.write("Enter a sentence to translate between different languages using Meta's M2M100 model.")
 
     # Load the general model
-    model_general, tokenizer_general = load_model("facebook/m2m100_418M")
+    model_general, tokenizer_general = load_model("/General/facebook/m2m100_418M")
 
     # Input fields
     source_lang_general = st.selectbox("Select source language", ["en", "ko", "fr", "de", "ja", "zh"], key="general_source")
@@ -105,7 +105,7 @@ with tab2:
     st.write("Enter a sentence to translate using the fine-tuned M2M100 model from Hugging Face.")
 
     # Load the fine-tuned model
-    model_finetune, tokenizer_finetune = load_model("JamesKim/m2m100-ft3")
+    model_finetune, tokenizer_finetune = load_model("/Finetune/JamesKim/m2m100-ft3")
 
     # Input fields
     source_lang_finetune = st.selectbox("Select source language", ["en", "ko", "fr", "de", "ja", "zh"], key="finetune_source")
