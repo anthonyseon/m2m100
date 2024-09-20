@@ -7,12 +7,14 @@ st.set_page_config(layout="wide", page_title="M2M100 Translator")
 
 # Function to load a model
 @st.cache_resource
-def load_model(model_name):
+def load_model():
+    model_name = "facebook/m2m100_418M"
     model = M2M100ForConditionalGeneration.from_pretrained(model_name)
     tokenizer = M2M100Tokenizer.from_pretrained(model_name)
     return model, tokenizer
 
 def finetune_load_model(model_name):
+    model_name = "JamesKim/m2m100-ft3"
     model = M2M100ForConditionalGeneration.from_pretrained(model_name)
     tokenizer = M2M100Tokenizer.from_pretrained(model_name)
     return model, tokenizer
@@ -28,7 +30,7 @@ with tab1:
     st.write("Enter a sentence to translate between different languages using Meta's M2M100 model.")
 
     # Load the general model
-    model_general, tokenizer_general = load_model("facebook/m2m100_418M")
+    model_general, tokenizer_general = load_model()
 
     # Input fields
     source_lang_general = st.selectbox("Select source language", ["en", "ko", "fr", "de", "ja", "zh"], key="general_source")
@@ -60,7 +62,7 @@ with tab2:
     st.write("Enter a sentence to translate using the fine-tuned M2M100 model from Hugging Face.")
 
     # Load the fine-tuned model
-    model_finetune, tokenizer_finetune = finetune_load_model("JamesKim/m2m100-ft3")
+    model_finetune, tokenizer_finetune = finetune_load_model()
 
     # Input fields
     source_lang_finetune = st.selectbox("Select source language", ["en", "ko", "fr", "de", "ja", "zh"], key="finetune_source")
