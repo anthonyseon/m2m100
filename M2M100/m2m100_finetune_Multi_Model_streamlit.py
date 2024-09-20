@@ -20,7 +20,7 @@ def finetune_load_model():
     return model, tokenizer
 
 # Tab structure
-tab1, tab2 = st.tabs(["General", "Finetune"])
+tab1, tab2 = st.tabs(["General (facebook/m2m100_418M)", "Finetune (JamesKim/m2m100-ft3_073)"])
 
 # --- General tab ---
 with tab1:
